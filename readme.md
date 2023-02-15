@@ -1,6 +1,6 @@
 # Damit Yarn! Backend 👚
 
-The Damit Yarn! Express RESTful API is an API used for the Damit Yarn! React Native Mobile Application.
+The Damit Yarn! RESTful API is an API used for the Damit Yarn! React Native Mobile Application. It will be made using Express JS & Node JS and will connect to PostgreSQL in the future.
 
 ## 📖 API Reference 📖
 
