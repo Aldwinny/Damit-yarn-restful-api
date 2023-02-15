@@ -2,6 +2,20 @@
 logs
 *.log
 
+# NPM stuff
+package-lock.json
+node_modules
+*.log
+*.gz
+
+# Mac config
+.DS_Store
+
+# Secrets
+.env
+
+# Everything else beyond this point I have no idea..
+
 # Runtime data
 pids
 *.pid
@@ -22,13 +36,3 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
-# Dependency directory
-# https://docs.npmjs.com/cli/shrinkwrap#caveats
-node_modules
-
-# Debug log from npm
-npm-debug.log
-
-.DS_Store
-
-.env
