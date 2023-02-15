@@ -16,3 +16,9 @@ app.get("/", (req, res) => {
     message: "Success!",
   });
 });
+
+app.get("/api/", (req, res) => {
+  res.status(405).send({
+    message: "To be Implemented",
+  });
+});
