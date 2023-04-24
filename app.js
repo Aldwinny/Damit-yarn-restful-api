@@ -35,6 +35,7 @@ app.all("*", (req, res, next) => {
     const bearerToken = bearerHeader.split(" ")[1];
 
     try {
+      console.log(process.env.APP_SIGNATURE);
       var decryptToken = jwt.verifyToken(bearerToken);
 
       req.token = decryptToken;
@@ -42,6 +43,7 @@ app.all("*", (req, res, next) => {
       req.role = decryptToken.role;
       next();
     } catch (exception) {
+      console.log(exception);
       res.status(401).send({
         message: "unauthorized",
         info: "Invalid JWT signature, login again or resend request without Bearer token",
