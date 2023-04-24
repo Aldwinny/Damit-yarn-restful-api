@@ -35,7 +35,6 @@ app.all("*", (req, res, next) => {
     const bearerToken = bearerHeader.split(" ")[1];
 
     try {
-      console.log(process.env.APP_SIGNATURE);
       var decryptToken = jwt.verifyToken(bearerToken);
 
       req.token = decryptToken;
