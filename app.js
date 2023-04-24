@@ -92,7 +92,7 @@ app.use((req, res, next) => {
 });
 
 // TODO: Change back by removing the IP
-app.listen(PORT, ADDRESS, (error) => {
+app.listen(PORT, (error) => {
   if (error) console.log(error);
   console.log(`Now running on port ${PORT}`);
 });
