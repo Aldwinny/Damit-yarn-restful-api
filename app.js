@@ -1,19 +1,33 @@
 require("dotenv").config();
 
 const express = require("express");
+const multer = require("multer");
 
 // Route imports
 const userRoutes = require("./src/model/user/routes");
+const shopRoutes = require("./src/model/shop/routes");
+const itemRoutes = require("./src/model/item/routes");
 
 // Local port stuff
 const app = express();
 const PORT = 3000;
-const ADDRESS = "192.168.100.111";
+// let ADDRESS = "192.168.100.111";
+
+// Multer storage
+const storage = multer.diskStorage({
+  destination: "./uploads/",
+  filename: function (req, file, cb) {
+    cb(null, "SomeImage" + "." + file.originalname.split(".").pop());
+  },
+});
+
+const diskStorage = multer({ storage: storage });
 
 // Middleware
 app.use(express.json());
 
 app.all("*", (req, res, next) => {
+  console.log("received api requesty");
   // Check the API key if matching (For app attestation)
   //   const api_key = req.query.api_key;
 
@@ -29,7 +43,8 @@ app.all("*", (req, res, next) => {
 
   // Check the JWT token (For role-based authorization)
   const jwt = require("./src/utils/token");
-  const bearerHeader = req.headers.authorization;
+  const bearerHeader =
+    req.headers?.authorization ?? req.body?.headers?.authorization;
 
   if (bearerHeader !== undefined) {
     const bearerToken = bearerHeader.split(" ")[1];
@@ -40,6 +55,7 @@ app.all("*", (req, res, next) => {
       req.token = decryptToken;
       req.username = decryptToken.username;
       req.role = decryptToken.role;
+
       next();
     } catch (exception) {
       console.log(exception);
@@ -64,10 +80,10 @@ app.get("/", (req, res) => {
 });
 
 // TODO: Temporary debug link
-app.all("/debug", async (req, res) => {
+app.all("/debug", diskStorage.single("image"), async (req, res) => {
+  console.log(req.file);
+  console.log("received");
   console.log(req.query);
-  console.log(req.headers.authorization);
-  console.log(req.body);
   await new Promise((resolve) =>
     setTimeout(() => {
       res.status(200).json({
@@ -80,6 +96,8 @@ app.all("/debug", async (req, res) => {
 });
 
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/shops", shopRoutes);
+app.use("/api/v1/items", itemRoutes);
 
 app.use((req, res, next) => {
   // res.status(405).send({

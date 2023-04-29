@@ -10,6 +10,7 @@ router.post("/", controller.addUser);
 router.get("/", controller.getUsers);
 router.get("/:id", controller.getUserByID);
 router.post("/login", controller.loginUser);
+router.post("/verify", controller.verifyPassword);
 
 // UPDATE routes
 router.put("/:id", controller.updateUser);
