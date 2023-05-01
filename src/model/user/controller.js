@@ -145,6 +145,8 @@ const addUser = (req, res) => {
   if (!isValidAll) return;
 
   // Update user password using BCrypt
+  console.log(userData[userData.length - 1]);
+  console.log(bcrypt.hash(userData[userData.length - 1]));
   userData[userData.length - 1] = bcrypt.hash(userData[userData.length - 1]);
 
   // validate shop input
