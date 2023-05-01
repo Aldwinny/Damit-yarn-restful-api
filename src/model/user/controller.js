@@ -477,10 +477,9 @@ const verifyPassword = (req, res) => {
       return;
     }
 
-    // WEAK CHECKING, FIX THIS LATUR
     res.status(200).json({
       message: "success",
-      info: results.rows[0].password == password,
+      info: bcrypt.compare(password, results.rows[0].password),
       kaocode: ":-)",
     });
     return;
