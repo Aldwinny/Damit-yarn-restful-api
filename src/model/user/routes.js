@@ -3,8 +3,19 @@ const controller = require("./controller");
 
 const router = Router();
 
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: "./uploads/",
+  filename: function (req, file, cb) {
+    cb(null, "image" + "." + file.originalname.split(".").pop());
+  },
+});
+
+const diskStorage = multer({ storage: storage });
+
 // CREATE routes
 router.post("/", controller.addUser);
+router.post("/upload", diskStorage.single("image"), controller.uploadUserPhoto);
 
 // READ routes
 router.get("/", controller.getUsers);

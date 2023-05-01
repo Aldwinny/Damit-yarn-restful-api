@@ -12,6 +12,7 @@ const getUserByEmail = `SELECT * FROM ${TABLE} WHERE email = $1`;
 // UPDATE queries
 const updateUser = `UPDATE ${TABLE} SET firstname = $1, middlename = $2, lastname = $3, code = $4, contact = $5, street = $6, zip = $7, city = $8, country = $9 WHERE id = $10 RETURNING *`;
 const updateUserShop = `UPDATE ${TABLE} SET shopid = $1 WHERE id = $2`;
+const updateUserImage = `UPDATE ${TABLE} SET image = $1 WHERE id = $2`;
 
 // DELETE queries
 const deleteUser = `DELETE FROM ${TABLE} WHERE id = $1`;
@@ -28,4 +29,5 @@ module.exports = {
   checkIfConflicting,
   getUserByEmail,
   updateUserShop,
+  updateUserImage,
 };

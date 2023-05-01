@@ -7,11 +7,11 @@ const multer = require("multer");
 const userRoutes = require("./src/model/user/routes");
 const shopRoutes = require("./src/model/shop/routes");
 const itemRoutes = require("./src/model/item/routes");
+const cloudinary = require("./src/utils/cloudinary");
 
 // Local port stuff
 const app = express();
 const PORT = 3000;
-// let ADDRESS = "192.168.100.111";
 
 // Multer storage
 const storage = multer.diskStorage({
@@ -27,7 +27,8 @@ const diskStorage = multer({ storage: storage });
 app.use(express.json());
 
 app.all("*", (req, res, next) => {
-  console.log("received api requesty");
+  console.log("received api request!");
+
   // Check the API key if matching (For app attestation)
   //   const api_key = req.query.api_key;
 
@@ -55,7 +56,6 @@ app.all("*", (req, res, next) => {
       req.token = decryptToken;
       req.username = decryptToken.username;
       req.role = decryptToken.role;
-
       next();
     } catch (exception) {
       console.log(exception);
@@ -84,6 +84,16 @@ app.all("/debug", diskStorage.single("image"), async (req, res) => {
   console.log(req.file);
   console.log("received");
   console.log(req.query);
+
+  cloudinary
+    .uploadImage(req.file)
+    .then((res) => {
+      console.log("Response", res);
+    })
+    .catch((err) => {
+      console.log("Error", err);
+    });
+
   await new Promise((resolve) =>
     setTimeout(() => {
       res.status(200).json({

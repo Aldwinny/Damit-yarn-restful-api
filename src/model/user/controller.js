@@ -4,6 +4,7 @@ const shopQueries = require("../shop/queries");
 const jwt = require("../../utils/token");
 
 const validator = require("../../utils/validate");
+const cloudinary = require("../../utils/cloudinary");
 
 const ROLES = require("../../shared/constants").ROLES;
 
@@ -569,6 +570,50 @@ const updateUser = (req, res) => {
   );
 };
 
+const uploadUserPhoto = (req, res) => {
+  const image = req.file;
+
+  const { id, old } = req.query;
+
+  if (old) {
+    cloudinary.deleteImage(old);
+  }
+
+  cloudinary
+    .uploadImage(image)
+    .then((link) => {
+      pool.query(queries.updateUserImage, [link, id], (error, results) => {
+        if (error) {
+          console.log(error);
+          res.status(500).json({
+            message: "Internal server error",
+            info: "Upload failed",
+            kaocode: ":-(",
+          });
+          return;
+        }
+
+        res.status(201).json({
+          message: "success",
+          info: "Image successfully uploaded",
+          image: link,
+          kaocode: ":-)",
+        });
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        message: "Internal server error",
+        info: "Upload failed",
+        kaocode: ":-(",
+      });
+      return;
+    });
+
+  return;
+};
+
 const validateUpdateData = (data, res) => {
   const arrayValidation = [
     validator.validate(data[0], validator.INFO.NAME), // firstname
@@ -658,4 +703,5 @@ module.exports = {
   updateUser,
   loginUser,
   verifyPassword,
+  uploadUserPhoto,
 };
