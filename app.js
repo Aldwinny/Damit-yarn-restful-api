@@ -84,9 +84,28 @@ app.all("/debug", async (req, res) => {
   const bcrypt = require("./src/utils/password");
 
   const textTest = "Admin123!";
-  const textCrypt = bcrypt.hash(textTest);
+  let textCrypt;
+  let compare;
 
-  console.log(textTest, textCrypt, bcrypt.compare(textTest, textCrypt));
+  bcrypt
+    .hash(textTest)
+    .then((result) => {
+      textCrypt = result;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  bcrypt
+    .compare(textTest, textCrypt)
+    .then((result) => {
+      compare = result;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  console.log(textTest, textCrypt);
 
   res.status(200).json({
     message: "debug returned success",

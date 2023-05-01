@@ -7,9 +7,7 @@ const bcrypt = require("bcrypt");
  * @returns Hash - The salted and hashed version of the password.
  */
 async function hash(plainTextPassword) {
-  await bcrypt.hash(plainTextPassword, 10).then((res) => {
-    return res;
-  });
+  return await bcrypt.hash(plainTextPassword, 10);
 }
 
 /**
@@ -20,9 +18,7 @@ async function hash(plainTextPassword) {
  * @returns {boolean} result - whether the password matches
  */
 async function compare(plainTextPassword, hash) {
-  await bcrypt.compare(plainTextPassword, hash).then((res) => {
-    return res;
-  });
+  return await bcrypt.compare(plainTextPassword, hash);
 }
 
 module.exports = {
