@@ -10,6 +10,7 @@ const pool = new Pool({
   database: "damit_yarn",
   password: process.env.PG_PASSWORD,
   port: parseInt(process.env.PG_PORT),
+  ssl: true,
 });
 
 module.exports = pool;
