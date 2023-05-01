@@ -80,29 +80,19 @@ app.get("/", (req, res) => {
 });
 
 // TODO: Temporary debug link
-app.all("/debug", diskStorage.single("image"), async (req, res) => {
-  console.log(req.file);
-  console.log("received");
-  console.log(req.query);
+app.all("/debug", async (req, res) => {
+  const bcrypt = require("./src/utils/password");
 
-  cloudinary
-    .uploadImage(req.file)
-    .then((res) => {
-      console.log("Response", res);
-    })
-    .catch((err) => {
-      console.log("Error", err);
-    });
+  const textTest = "Admin123!";
+  const textCrypt = bcrypt.hash(textTest);
 
-  await new Promise((resolve) =>
-    setTimeout(() => {
-      res.status(200).json({
-        message: "debug returned success",
-        output: true,
-      });
-      resolve();
-    }, 1000)
-  );
+  console.log(textTest, textCrypt, bcrypt.compare(textTest, textCrypt));
+
+  res.status(200).json({
+    message: "debug returned success",
+    output: true,
+  });
+  return;
 });
 
 app.use("/api/v1/users", userRoutes);
