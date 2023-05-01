@@ -7,7 +7,18 @@ const bcrypt = require("bcrypt");
  * @returns Hash - The salted and hashed version of the password.
  */
 async function hash(plainTextPassword) {
-  return await bcrypt.hash(plainTextPassword, 10);
+  let crypt;
+
+  await bcrypt
+    .hash(plainTextPassword, 10)
+    .then((res) => {
+      crypt = res;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  return crypt;
 }
 
 /**

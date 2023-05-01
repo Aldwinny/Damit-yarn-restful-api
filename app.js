@@ -81,32 +81,6 @@ app.get("/", (req, res) => {
 
 // TODO: Temporary debug link
 app.all("/debug", async (req, res) => {
-  const bcrypt = require("./src/utils/password");
-
-  const textTest = "Admin123!";
-  let textCrypt;
-  let compare;
-
-  bcrypt
-    .hash(textTest)
-    .then((result) => {
-      textCrypt = result;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
-  bcrypt
-    .compare(textTest, textCrypt)
-    .then((result) => {
-      compare = result;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
-  console.log(textTest, textCrypt);
-
   res.status(200).json({
     message: "debug returned success",
     output: true,

@@ -85,7 +85,7 @@ const getUserByID = (req, res) => {
   }
 };
 
-const addUser = (req, res) => {
+const addUser = async (req, res) => {
   const {
     username,
     firstname,
@@ -145,9 +145,9 @@ const addUser = (req, res) => {
   if (!isValidAll) return;
 
   // Update user password using BCrypt
-  console.log(userData[userData.length - 1]);
-  console.log(bcrypt.hash(userData[userData.length - 1]));
-  userData[userData.length - 1] = bcrypt.hash(userData[userData.length - 1]);
+  await bcrypt.hash(userData[userData.length - 1]).then((res) => {
+    userData[userData.length - 1] = res;
+  });
 
   // validate shop input
   if (hasShop) {
@@ -340,7 +340,7 @@ const loginUser = (req, res) => {
     return;
   }
 
-  pool.query(queries.getUserByEmail, [userData[0]], (error, results) => {
+  pool.query(queries.getUserByEmail, [userData[0]], async (error, results) => {
     if (error) {
       res.status(500).json({
         message: "Internal server error",
@@ -359,7 +359,18 @@ const loginUser = (req, res) => {
       return;
     }
 
-    if (bcrypt.compare(userData[1], results.rows[0].password)) {
+    let comparePassword;
+
+    await bcrypt
+      .compare(userData[1], results.rows[0].password)
+      .then((result) => {
+        comparePassword = result;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    if (comparePassword) {
       // this doesn't feel right but ok
       delete results.rows[0].password;
 
@@ -450,7 +461,7 @@ const verifyPassword = (req, res) => {
   const id = parseInt(req.body.data.id);
   const password = req.body.data.password;
 
-  pool.query(queries.getUserByID, [id], (error, results) => {
+  pool.query(queries.getUserByID, [id], async (error, results) => {
     if (error) {
       res.status(500).json({
         message: "Internal server error",
@@ -479,9 +490,15 @@ const verifyPassword = (req, res) => {
       return;
     }
 
+    let info;
+
+    await bcrypt.compare(password, results.rows[0].password).then((result) => {
+      info = result;
+    });
+
     res.status(200).json({
       message: "success",
-      info: bcrypt.compare(password, results.rows[0].password),
+      info: info,
       kaocode: ":-)",
     });
     return;
