@@ -6,6 +6,8 @@ const jwt = require("../../utils/token");
 const validator = require("../../utils/validate");
 const cloudinary = require("../../utils/cloudinary");
 
+const bcrypt = require("../../utils/password");
+
 const ROLES = require("../../shared/constants").ROLES;
 
 const getUsers = (req, res) => {
@@ -141,6 +143,9 @@ const addUser = (req, res) => {
 
   let isValidAll = validateUser(userData, res);
   if (!isValidAll) return;
+
+  // Update user password using BCrypt
+  userData[userData.length - 1] = bcrypt.hash(userData[userData.length - 1]);
 
   // validate shop input
   if (hasShop) {
@@ -352,8 +357,7 @@ const loginUser = (req, res) => {
       return;
     }
 
-    // TODO: WEAK TESTING, USE BCRYPT
-    if (results.rows[0].password === userData[1]) {
+    if (bcrypt.compare(userData[1], results.rows[0].password)) {
       // this doesn't feel right but ok
       delete results.rows[0].password;
 
