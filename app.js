@@ -29,18 +29,18 @@ app.use(express.json());
 app.all("*", (req, res, next) => {
   console.log("received api request!");
 
-  // Check the API key if matching (For app attestation)
-  //   const api_key = req.query.api_key;
+  const api_key = req.query.apikey;
 
-  //   if (api_key && api_key === process.env.APP_API_KEY) {
-  //     console.log(api_key);
-  //     next();
-  //     return;
-  //   }
-  //   res.status(401).send({
-  //     message: "unauthorized",
-  //     kaocode: "( •̀ - •́ )",
-  //   });
+  if (api_key && api_key === process.env.APP_API_KEY) {
+    console.log("success", api_key);
+  } else {
+    console.log("Error on key", api_key);
+    res.status(403).send({
+      message: "Forbidden",
+      kaocode: "???",
+    });
+    return;
+  }
 
   // Check the JWT token (For role-based authorization)
   const jwt = require("./src/utils/token");
