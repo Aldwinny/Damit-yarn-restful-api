@@ -1,15 +1,25 @@
-require("dotenv").config();
+require("dotenv").config(); // Include all environmental variables
 
 const cloudinary = require("cloudinary").v2;
 const crypto = require("crypto");
 
-// Configuration
+/**
+ * Configures the cloudinary API for use
+ */
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+/**
+ * This function attempts to upload the Image to the
+ * Cloudinary Servers. It changes the filename of the imageData
+ * before uploading to Cloudinary.
+ * @param {*} imageData
+ * @param {*} aspect
+ * @returns
+ */
 const uploadImage = async (imageData, aspect = "square") => {
   let filename = crypto
     .createHash("md5")

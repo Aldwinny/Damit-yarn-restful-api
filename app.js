@@ -29,6 +29,12 @@ app.use(express.json());
 app.all("*", (req, res, next) => {
   console.log("received api request!");
 
+  /**
+   * Require API Key along the request
+   *
+   * This is for App Attestation purposes and to ensure validity
+   * of requests.
+   */
   const api_key = req.query.apikey;
 
   if (api_key && api_key === process.env.APP_API_KEY) {
