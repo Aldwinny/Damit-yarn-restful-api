@@ -13,6 +13,10 @@ const cloudinary = require("./src/utils/cloudinary");
 const app = express();
 const PORT = 3000;
 
+// Debug variables
+const DEBUG = false;
+const IP = "192.168.254.129"; // Local Network IP for hosting in a network
+
 // Multer storage
 const storage = multer.diskStorage({
   destination: "./uploads/",
@@ -109,8 +113,14 @@ app.use((req, res, next) => {
   //   });
 });
 
-// TODO: Change back by removing the IP
-app.listen(PORT, (error) => {
-  if (error) console.log(error);
-  console.log(`Now running on port ${PORT}`);
-});
+if (DEBUG) {
+  app.listen(PORT, IP, (error) => {
+    if (error) console.log(error);
+    console.log(`[DEBUG] Now running on http://${IP}:${PORT}`);
+  });
+} else {
+  app.listen(PORT, (error) => {
+    if (error) console.log(error);
+    console.log(`[RELEASE] Now running on port http://localhost:${PORT}`);
+  });
+}
