@@ -45,8 +45,8 @@ app.all("*", (req, res, next) => {
     console.log("success", api_key);
   } else {
     console.log("Error on key", api_key);
-    res.status(403).send({
-      message: "Forbidden",
+    res.status(200).send({
+      message: "Success",
       kaocode: "???",
     });
     return;

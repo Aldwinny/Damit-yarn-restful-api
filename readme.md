@@ -1,22 +1,30 @@
-# Damit Yarn! Backend 👚
+# Damit Yarn! Backend
 
-The Damit Yarn! RESTful API is an API used for the Damit Yarn! React Native Mobile Application. It will be made using Express JS & Node JS and will connect to PostgreSQL in the future.
-
-## 📖 API Reference 📖
-
-⚠️ To be Implemented.
-
-### Test call 📢
-
-```http
-  GET /api
-```
-
-#### ✅ Returns a status of 405 and a message of "To be Implemented."
+> An ExpressJS / NodeJS / PostgreSQL RESTful API implementation for Damit Yarn Mobile. [Check out the Mobile App!](https://github.com/Aldwinny/damit-yarn-mobile-app)
 
 ## ✨ Author ✨
 
-- [@Aldwinny](https://www.github.com/aldwinny)
+I'm Aldwin Dennis Reyes, an aspiring mobile developer. Check me out on my website [here!](https://aldwinny.github.io/)
+
+## 📖 Technologies 📖
+
+Primarily built using Express JS with additional implementation of libraries through npm.
+
+- bcrypt
+- Cloudinary
+- dotenv
+- JSON Web Tokens
+- PostgreSQL
+
+The frontend implementation can be found [here](https://github.com/Aldwinny/damit-yarn-mobile-app)
+
+## 🛠️ Running 🛠️
+
+After installing the packages, just run <code>npm run start</code> or <code>npm start</code> to run the Nodemon server.
+
+<!-- 📢 API Documentation 📢
+
+#### ✅ Returns a status of 405 and a message of "To be Implemented."
 
 &nbsp;
 
@@ -42,4 +50,4 @@ The Damit Yarn! RESTful API is an API used for the Damit Yarn! React Native Mobi
 
 #### add(num1, num2)
 
-Takes two numbers and returns the sum.
+Takes two numbers and returns the sum. -->
