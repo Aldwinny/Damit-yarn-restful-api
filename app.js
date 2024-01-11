@@ -14,7 +14,7 @@ const app = express();
 const PORT = 3000;
 
 // Debug variables
-const DEBUG = false;
+const DEBUG = true;
 const IP = "192.168.254.129"; // Local Network IP for hosting in a network
 
 // Multer storage
