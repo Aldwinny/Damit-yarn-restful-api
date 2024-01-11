@@ -1,5 +1,4 @@
 <img src="https://drive.google.com/uc?id=1Jkqif4iYy-1dyNdyI1_hu_Ub-XTZvbQY" height="100" />
-<hr>
 
 # <img src="https://drive.google.com/uc?id=1HioQItuqx9IEasGNdwUvbAKpHDskZ7yp" height="25" /> Damit Yarn! Backend
 
