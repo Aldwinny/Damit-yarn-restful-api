@@ -1,3 +1,5 @@
+<img src="https://drive.google.com/uc?id=1Jkqif4iYy-1dyNdyI1_hu_Ub-XTZvbQY" height="100" />
+
 # <img src="https://drive.google.com/uc?id=1HioQItuqx9IEasGNdwUvbAKpHDskZ7yp" height="25" /> Damit Yarn! Backend
 
 > An ExpressJS / NodeJS / PostgreSQL RESTful API implementation for Damit Yarn Mobile. [Check out the Mobile App!](https://github.com/Aldwinny/damit-yarn-mobile-app)
@@ -5,6 +7,8 @@
 ## ✏️ Author
 
 I'm Aldwin Dennis Reyes, an aspiring mobile developer. Check me out on my website [here!](https://aldwinny.github.io/)
+
+This is built alongside the Mobile Application for the purpose of completing the college course Mobile Computing. **Damit Yarn! is not a real company.** I created the logo in Photopea and designed the app in Figma.
 
 ## 💻 Technologies
 
